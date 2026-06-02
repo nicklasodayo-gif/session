@@ -31,18 +31,21 @@ session_start();
 
     <?php
 
-    if(isset($_POST['username'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $_SESSION['username'] =
-        $_POST['username'];
+        if (isset($_POST['username']) && !empty(trim($_POST['username']))) {
 
-        echo "<h3>Welcome " .
-        $_SESSION['username'] .
-        "</h3>";
-    } 
-    else {
-        echo "please fill the username field.";
+            $_SESSION['username'] = $_POST['username'];
+
+            echo "<h3>Welcome " . htmlspecialchars($_SESSION['username']) . "</h3>";
+
+        } else {
+
+            echo "<p>Error: Please fill in the username field.</p>";
+
+        }
     }
+
     ?>
 
 </body>
